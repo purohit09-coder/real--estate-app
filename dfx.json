@@ -1,0 +1,38 @@
+{
+  "canisters": {
+    "real-estate-app-backend": {
+      "candid": "src/real-estate-app-backend/real-estate-app-backend.did",
+      "package": "real-estate-app-backend",
+      "type": "rust",
+      "wasm": "target/wasm32-unknown-unknown/release/real_estate_app_backend_opt.wasm",
+      "build": [
+        "cargo build --target wasm32-unknown-unknown --release --package real-estate-app-backend",
+        "candid-extractor target/wasm32-unknown-unknown/release/real_estate_app_backend.wasm > src/real-estate-app-backend/real-estate-app-backend.did"
+      ]
+    },
+    "real-estate-app-frontend": {
+      "dependencies": [
+        "real-estate-app-backend"
+      ],
+      "source": [
+        "src/real-estate-app-frontend/dist"
+      ],
+      "type": "assets",
+      "main": "src/real-estate-app-frontend/dist/index.html"
+    }
+  },
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:4943",
+      "type": "ephemeral"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
